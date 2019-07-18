@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import './other_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,67 +24,72 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Avasoft Timesheet"),
-
-        actions: <Widget>[
-          IconButton(
-            icon: new Icon(Icons.search),
-            onPressed: () {},
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Avasoft Timesheet"),
+          bottom: TabBar(
+            labelStyle: TextStyle(fontSize: 15),
+            labelPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+            //isScrollable: true,
+            tabs: <Widget>[
+              Text("ALL"),
+              Text("THIS MONTH"),
+            ],
           ),
-        ],
-        //elevation: 5,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("Rendy Harimayco"),
-              accountEmail: Text("rendy@avasoft.net"),
-              currentAccountPicture: GestureDetector(
-                onTap: () => print("Gambar profil diklik"),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(mainProfilePicture),
-                ),
-              ),
-              otherAccountsPictures: <Widget>[
-                GestureDetector(
-                  onTap: () => switchUser(),
+          actions: <Widget>[
+            IconButton(
+              icon: new Icon(Icons.search),
+              onPressed: () {},
+            ),
+          ],
+          //elevation: 5,
+        ),
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                accountName: Text("Rendy Harimayco"),
+                accountEmail: Text("rendy@avasoft.net"),
+                currentAccountPicture: GestureDetector(
+                  onTap: () => print("Gambar profil diklik"),
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(otherProfilePicture),
+                    backgroundImage: NetworkImage(mainProfilePicture),
                   ),
                 ),
-              ],
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(profileBackground),
-                  fit: BoxFit.fill,
-                ),
               ),
-            ),
-            ListTile(
-              title: Center(
-                child: Text(
-                  "Welcome to Avasoft Timesheet!",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.teal),
-                ),
+              Padding(
+                padding: EdgeInsets.all(10),
               ),
-            ),
-            ListTile(
-              title: Text("Workload"),
-              leading: Icon(Icons.kitchen),
-              onTap: () => Navigator.of(context).push(
-                    new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          new OtherPage("Page Workload"),
+              ListTile(
+                title: Text(
+                  "Add new Timesheet",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+                leading: Icon(
+                  Icons.date_range,
+                  color: Color.fromRGBO(225, 11, 23, 1),
+                  size: 40,
+                ),
+                onTap: () => Navigator.of(context).push(
+                      new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            new OtherPage("Page Workload"),
+                      ),
                     ),
-                  ),
-            ),
-            ListTile(
-                title: Text("Staff List"),
-                leading: Icon(Icons.people),
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  "Staff List",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+                leading: Icon(
+                  Icons.people,
+                  color: Color.fromRGBO(225, 11, 23, 1),
+                  size: 40,
+                ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
@@ -92,10 +98,19 @@ class _HomePageState extends State<HomePage> {
                           new OtherPage("Page Staff List"),
                     ),
                   );
-                }),
-            ListTile(
-                title: Text("View Summary Workload"),
-                leading: Icon(Icons.work),
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  "View Summary Workload",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+                leading: Icon(
+                  Icons.work,
+                  color: Color.fromRGBO(225, 11, 23, 1),
+                  size: 40,
+                ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
@@ -104,11 +119,18 @@ class _HomePageState extends State<HomePage> {
                           new OtherPage("Page Summary Workload"),
                     ),
                   );
-                }),
-            Divider(),
-            ListTile(
+                },
+              ),
+              Divider(
+                color: Colors.black54,
+              ),
+              ListTile(
                 title: Text("Edit Profile"),
-                leading: Icon(Icons.edit),
+                leading: Icon(
+                  Icons.edit,
+                  color: Color.fromRGBO(225, 11, 23, 1),
+                  size: 40,
+                ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
@@ -117,25 +139,61 @@ class _HomePageState extends State<HomePage> {
                           new OtherPage("Edit Profile"),
                     ),
                   );
-                }),
-            ListTile(
-              title: Text("Logout"),
-              leading: Icon(Icons.exit_to_app),
-              onTap: () => Navigator.of(context).pop(),
+                },
+              ),
+              Divider(),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: RaisedButton(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                        ),
+                        elevation: 0,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+                        onPressed: () {},
+                        color: Colors.grey[600],
+                        child: Text(
+                          "Log Out",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            Center(
+              child: Text(
+                "Home Page 1",
+                style: TextStyle(fontSize: 35.0),
+              ),
+            ),
+            Center(
+              child: Text(
+                "Home Page 2",
+                style: TextStyle(fontSize: 35.0),
+              ),
             ),
           ],
         ),
-      ),
-      body: Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(fontSize: 35.0),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
-        backgroundColor: Colors.teal[800],
       ),
     );
   }

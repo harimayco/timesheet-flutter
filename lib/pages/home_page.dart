@@ -1,3 +1,5 @@
+import 'package:AvasoftTimesheet/pages/login_page.dart';
+import 'package:AvasoftTimesheet/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import './other_page.dart';
@@ -49,15 +51,34 @@ class _HomePageState extends State<HomePage> {
         drawer: Drawer(
           child: Column(
             children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: Text("Rendy Harimayco"),
-                accountEmail: Text("rendy@avasoft.net"),
-                currentAccountPicture: GestureDetector(
-                  onTap: () => print("Gambar profil diklik"),
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(mainProfilePicture),
+              Stack(
+                children: <Widget>[
+                  UserAccountsDrawerHeader(
+                    accountName: Text("Rendy Harimayco"),
+                    accountEmail: Text("rendy@avasoft.net"),
+                    currentAccountPicture: GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        new MaterialPageRoute(
+                          builder: (BuildContext context) => new ProfilePage(),
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(mainProfilePicture),
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    bottom: 30,
+                    right: 20,
+                    child: RawMaterialButton(
+                      padding: EdgeInsets.all(13),
+                      child: Icon(Icons.edit),
+                      fillColor: Colors.white,
+                      shape: CircleBorder(),
+                      onPressed: null,
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.all(10),
@@ -73,11 +94,11 @@ class _HomePageState extends State<HomePage> {
                   size: 40,
                 ),
                 onTap: () => Navigator.of(context).push(
-                      new MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            new OtherPage("Page Workload"),
-                      ),
-                    ),
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new OtherPage("Page Workload"),
+                  ),
+                ),
               ),
               Divider(),
               ListTile(
@@ -121,26 +142,6 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-              Divider(
-                color: Colors.black54,
-              ),
-              ListTile(
-                title: Text("Edit Profile"),
-                leading: Icon(
-                  Icons.edit,
-                  color: Color.fromRGBO(225, 11, 23, 1),
-                  size: 40,
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
-                    new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          new OtherPage("Edit Profile"),
-                    ),
-                  );
-                },
-              ),
               Divider(),
               Expanded(
                 child: Align(
@@ -156,7 +157,14 @@ class _HomePageState extends State<HomePage> {
                         elevation: 0,
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 14),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            new MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  new LoginPage(),
+                            ),
+                          );
+                        },
                         color: Colors.grey[600],
                         child: Text(
                           "Log Out",

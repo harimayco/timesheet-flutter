@@ -1,4 +1,6 @@
+import 'package:AvasoftTimesheet/pages/edit_profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainDrawer extends StatefulWidget {
   @override
@@ -45,7 +47,12 @@ class _MainDrawerState extends State<MainDrawer> {
                   child: Icon(Icons.edit),
                   fillColor: Colors.white,
                   shape: CircleBorder(),
-                  onPressed: null,
+                  onPressed: () => Navigator.of(context).push(
+                    new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new EditProfilePage(15),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -108,7 +115,9 @@ class _MainDrawerState extends State<MainDrawer> {
                     ),
                     elevation: 0,
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 14),
-                    onPressed: () {
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.setBool('login', false);
                       Navigator.pushNamed(context, '/login');
                     },
                     color: Colors.grey[600],

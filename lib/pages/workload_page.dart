@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'dart:async';
 
 class WorkloadPage extends StatelessWidget {
   final workloadTeam = [
@@ -31,52 +32,16 @@ class WorkloadPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            ListView.builder(
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(15),
-                    child: ExpansionTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://s3.amazonaws.com/uifaces/faces/twitter/marcoramires/128.jpg"),
-                      ),
-                      title: Text(
-                        workloadTeam[index],
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 18),
-                      ),
-                      backgroundColor: Colors.white,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(top: 20),
-                        ),
-                        CustomExpandedItem(
-                          title: "Carrol Company: Virtuemart Plugin",
-                          dueDate: "2018-03-19",
-                        ),
-                        CustomExpandedItem(
-                          title: "Latinnews: Add new feature to admin page",
-                          dueDate: "2019-04-17",
-                        ),
-                        CustomExpandedItem(
-                          title: "Trabolgan: Email issue",
-                          dueDate: "2017-05-05",
-                        ),
-                        CustomExpandedItem(
-                          title:
-                              "Aran Sweater Market: woocommerce & site Performance Issue",
-                          dueDate: "2016-07-07",
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+            FutureBuilder(
+              future: firstTabBarView2(),
+              builder: (BuildContext context, snapshot) {
+                // <--- build the things.
+                return snapshot.hasData
+                    ? snapshot.data
+                    : Center(child: Text('loading..'));
               },
-              itemCount: workloadTeam.length,
             ),
+            CustomViewTabs(),
             ListView(
               shrinkWrap: true,
               children: <Widget>[
@@ -212,12 +177,147 @@ class WorkloadPage extends StatelessWidget {
                 ),
               ],
             ),
-            Text("Test2"),
-            Text("test3"),
+            Text("haha"),
           ],
         ),
       ),
     );
+  }
+
+  Widget firstTabbarView() {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return Card(
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: ExpansionTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://s3.amazonaws.com/uifaces/faces/twitter/marcoramires/128.jpg"),
+              ),
+              title: Text(
+                this.workloadTeam[index],
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 18),
+              ),
+              backgroundColor: Colors.white,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                ),
+                CustomExpandedItem(
+                  title: "Carrol Company: Virtuemart Plugin",
+                  dueDate: "2018-03-19",
+                ),
+                CustomExpandedItem(
+                  title: "Latinnews: Add new feature to admin page",
+                  dueDate: "2019-04-17",
+                ),
+                CustomExpandedItem(
+                  title: "Trabolgan: Email issue",
+                  dueDate: "2017-05-05",
+                ),
+                CustomExpandedItem(
+                  title:
+                      "Aran Sweater Market: woocommerce & site Performance Issue",
+                  dueDate: "2016-07-07",
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      itemCount: workloadTeam.length,
+    );
+  }
+
+  Future<Widget> firstTabBarView2() {
+    return new Future.delayed(
+        const Duration(seconds: 3), () => firstTabbarView());
+  }
+}
+
+class CustomViewTabs extends StatefulWidget {
+  @override
+  _CustomViewTabsState createState() => _CustomViewTabsState();
+}
+
+class _CustomViewTabsState extends State<CustomViewTabs> {
+  final workloadTeam = [
+    "Stefanny",
+    "Adi MF",
+    "Ricky Zakaria",
+    "Taufik hidayat",
+    "Efryan"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: testingFuture(),
+      builder: (BuildContext context, snapshot) {
+        // <--- build the things.
+        return snapshot.hasData
+            ? snapshot.data
+            : Center(child: Text('loading..'));
+      },
+    );
+  }
+
+  Widget customBuilder() {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return Card(
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: ExpansionTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://s3.amazonaws.com/uifaces/faces/twitter/marcoramires/128.jpg"),
+              ),
+              title: Text(
+                this.workloadTeam[index],
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 18),
+              ),
+              backgroundColor: Colors.white,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                ),
+                CustomExpandedItem(
+                  title: "Carrol Company: Virtuemart Plugin",
+                  dueDate: "2018-03-19",
+                ),
+                CustomExpandedItem(
+                  title: "Latinnews: Add new feature to admin page",
+                  dueDate: "2019-04-17",
+                ),
+                CustomExpandedItem(
+                  title: "Trabolgan: Email issue",
+                  dueDate: "2017-05-05",
+                ),
+                CustomExpandedItem(
+                  title:
+                      "Aran Sweater Market: woocommerce & site Performance Issue",
+                  dueDate: "2016-07-07",
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      itemCount: workloadTeam.length,
+    );
+  }
+
+  Future<Widget> testingFuture() {
+    return new Future.delayed(
+        const Duration(seconds: 3), () => customBuilder());
   }
 }
 

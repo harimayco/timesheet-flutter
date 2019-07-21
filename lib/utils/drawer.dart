@@ -101,6 +101,10 @@ class _MainDrawerState extends State<MainDrawer> {
               Navigator.popAndPushNamed(context, '/workload');
             },
           ),
+          ListTile(
+            title: Text("Poke App"),
+            onTap: () => Navigator.pushNamed(context, '/poke'),
+          ),
           Divider(),
           Expanded(
             child: Align(
@@ -133,7 +137,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

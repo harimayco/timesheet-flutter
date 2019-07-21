@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:AvasoftTimesheet/common/serializer/auth.dart';
+import 'package:AvasoftTimesheet/common/api.dart';
 
 class StaffListPage extends StatelessWidget {
   @override
@@ -8,7 +10,16 @@ class StaffListPage extends StatelessWidget {
           title: Text("Staff List"),
         ),
         body: Center(
-          child: Text("Selamat Datang Staff List Page"),
-        ));
+            child: Column(
+          children: <Widget>[
+            Text("Selamat Datang Staff List Page"),
+            RaisedButton(
+              child: Text("Test"),
+              onPressed: () async {
+                ApiCall(context).testGet();
+              },
+            )
+          ],
+        )));
   }
 }

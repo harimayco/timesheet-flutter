@@ -1,5 +1,7 @@
 import 'package:AvasoftTimesheet/pages/home_page.dart';
+//import 'package:AvasoftTimesheet/pages/poke_page.dart';
 import 'package:AvasoftTimesheet/pages/profile_page.dart';
+import 'package:AvasoftTimesheet/pages/splash_screen.dart';
 import 'package:AvasoftTimesheet/pages/stafflist_page.dart';
 import 'package:AvasoftTimesheet/pages/timesheet.dart';
 import 'package:AvasoftTimesheet/pages/workload_page.dart';
@@ -10,10 +12,11 @@ void main() {
   runApp(
     new MaterialApp(
       title: "Avasoft Timesheet",
-      initialRoute: '/login',
+      initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => HomePage(),
+        '/': (context) => SplashScreen(),
+        '/homepage': (context) => HomePage(),
         '/login': (context) => LoginPage(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/workload': (context) => WorkloadPage(),

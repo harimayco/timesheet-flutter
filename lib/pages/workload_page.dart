@@ -23,6 +23,7 @@ class WorkloadPage extends StatelessWidget {
             labelPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             isScrollable: true,
             tabs: <Widget>[
+              
               Text("DEVELOPERS"),
               Text("DESIGNERS"),
               Text("SEO"),

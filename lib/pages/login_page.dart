@@ -1,3 +1,4 @@
+import 'package:AvasoftTimesheet/common/functions/showDialogSingleButton.dart';
 import 'package:AvasoftTimesheet/pages/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:AvasoftTimesheet/common/api.dart';
 
 class Response {
   final String status;
@@ -187,11 +189,20 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.w400,
                             fontSize: 15),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           _apiCall = true;
                         });
-                        _callPostAPI();
+                        //_callPostAPI();
+                        //showDialogSingleButton(context, "Test Title",
+                        //    "Anda tidak berhasil login", "OK");
+                        var ret = await ApiCall(context)
+                            .login(_email.text, _password.text);
+                        if (ret) {
+                          Navigator.pushNamed(context, '/homepage');
+                        } else {
+                          _apiCall = false;
+                        }
                       },
                     ),
                     progressWidget(),
